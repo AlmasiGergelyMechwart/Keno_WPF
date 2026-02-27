@@ -1,0 +1,10 @@
+﻿<Application x:Class="KenoGUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:KenoGUI"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <local:HighlightedToCells x:Key="HighlightedToCells" />
+        <local:InlineMultiConverter x:Key="asd" />
+    </Application.Resources>
+</Application>

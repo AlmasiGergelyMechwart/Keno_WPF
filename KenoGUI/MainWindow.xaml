@@ -1,0 +1,79 @@
+﻿<Window x:Class="KenoGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KenoGUI"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="Szelvények kezelése" Height="450" Width="800">
+    <Grid Margin="10, 20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+
+
+        <Button x:Name="btnLoad" Content="Szelbények betöltése" Margin="5" Click="btnLoad_Click" />
+        <Button x:Name="btnDaily" Grid.Column="1" Content="Napi sorsolás" Margin="5" Click="btnDaily_Click" />
+
+        <ListBox x:Name="lbSzelvenyek" Grid.Row="1" ItemsSource="{Binding Szelvenyek}" Margin="5" Background="Beige" SelectionChanged="lbSzelvenyek_SelectionChanged" />
+        <ListBox x:Name="lbRandom" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding RandomSzamok}" Margin="5" Background="Beige" />
+
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding ElementName=lbSzelvenyek, Path=SelectedItem.Szorzo, StringFormat='Szorzó: {0}'}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <ItemsControl Grid.Column="2" Grid.RowSpan="2" ItemsSource="{Binding Highlighted, Converter='{StaticResource HighlightedToCells}'}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="8" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock TextAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Path='Index'}" />
+                                <Setter Property="Background" Value="LightGreen" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path='IsHighlighted'}" Value="True">
+                                        <Setter Property="Background" Value="Yellow" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Grid.Row="2" Grid.Column="2" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=lbRandom, Path=HasItems}" Value="False">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=lbSzelvenyek, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource asd}" StringFormat="Nyeremény: {0}">
+                    <Binding ElementName="lbRandom" Path="Items" Mode="OneWay" />
+                    <Binding ElementName="lbSzelvenyek" Path="SelectedItem" Mode="OneWay" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+    </Grid>
+</Window>

@@ -107,7 +107,7 @@ namespace KenoGUI
         }
     }
 
-    public class InlineMultiConverter : IMultiValueConverter
+    public class RewardsConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {

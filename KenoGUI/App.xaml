@@ -5,6 +5,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:HighlightedToCells x:Key="HighlightedToCells" />
-        <local:InlineMultiConverter x:Key="asd" />
+        <local:RewardsConverter x:Key="RewardsConverter" />
     </Application.Resources>
 </Application>

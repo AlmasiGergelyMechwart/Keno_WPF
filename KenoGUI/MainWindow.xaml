@@ -68,7 +68,7 @@
                 </Style>
             </TextBlock.Style>
             <TextBlock.Text>
-                <MultiBinding Converter="{StaticResource asd}" StringFormat="Nyeremény: {0}">
+                <MultiBinding Converter="{StaticResource RewardsConverter}" StringFormat="Nyeremény: {0}">
                     <Binding ElementName="lbRandom" Path="Items" Mode="OneWay" />
                     <Binding ElementName="lbSzelvenyek" Path="SelectedItem" Mode="OneWay" />
                 </MultiBinding>
